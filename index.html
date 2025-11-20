@@ -38,6 +38,10 @@
             margin-bottom: 20px;
             text-align: center;
         }
+        .section-header h2 {
+            color: white !important;
+            margin: 0;
+        }
         ul {
             margin-top: 0;
         }
@@ -96,7 +100,7 @@
             font-weight: bold;
             color: #2c3e50;
         }
-        input[type="text"], textarea, input[type="email"], input[type="number"] {
+        input[type="text"], textarea, input[type="email"], input[type="number"], input[type="password"] {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
@@ -145,34 +149,79 @@
             color: #555;
             font-style: italic;
         }
-        .section-header h2 {
-            color: white !important;
+        
+        /* WELCOME SCREEN STYLES */
+        #welcomeScreen {
+            text-align: center;
         }
-
+        .welcome-box {
+            border: 2px solid #3498db;
+            background-color: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .password-section {
+            background: #eee;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .error-msg {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+        }
     </style>
 </head>
 <body>
 
     <div class="status-overlay" id="focusBar"></div>
 
-    <div class="container">
+    <!-- ================= WELCOME / PASSWORD SCREEN ================= -->
+    <div class="container" id="welcomeScreen">
+        <h1>Physics Brawl Tryouts</h1>
+        <p><strong>Welcome!</strong> Please read the instructions below before beginning.</p>
+        
+        <div class="welcome-box">
+            <h3>Test Structure</h3>
+            <ul>
+                <li><strong>Section 1 (Short Set):</strong> 4 Problems. Standard difficulty.</li>
+                <li><strong>Section 2 (Challenge):</strong> 3 Problems (Optional but recommended). Covers Fluids, Dynamics, and Momentum.</li>
+            </ul>
+            
+            <h3>Instructions</h3>
+            <ul>
+                <li><strong>Time Limit:</strong> Recommended 40–60 minutes.</li>
+                <li><strong>Hints:</strong> Hints are available for every problem. Click "Show Hint" to see them.</li>
+                <li><strong>Anti-Cheat:</strong> Once you enter the password, the system will track if you switch tabs or leave the window.</li>
+            </ul>
+        </div>
+
+        <div class="password-section">
+            <label for="passwordInput">Enter Password to Start:</label>
+            <input type="password" id="passwordInput" placeholder="Enter password here...">
+            <button class="submit-btn" onclick="checkPassword()" style="margin-top: 15px;">START TRYOUTS</button>
+            <div id="errorMsg" class="error-msg">Incorrect Password. Please try again.</div>
+        </div>
+    </div>
+
+    <!-- ================= MAIN TEST CONTAINER (Hidden Initially) ================= -->
+    <div class="container" id="testContainer" style="display: none;">
         <div class="header">
             <h1>Physics Brawl Tryouts</h1>
-            <p><strong>Time suggestion:</strong> 40–60 minutes</p>
-            
             <div class="warning">
                 ⚠️ <strong>ANTI-CHEAT ACTIVE:</strong> Do not switch tabs or windows. 
                 Your activity and <strong>time spent away</strong> from this page is being recorded.
             </div>
-
-            <p><strong>Rules:</strong></p>
-            <ul>
-                <li>You may use a calculator.</li>
-                <li>Show your work and reasoning. Partial credit > random answers.</li>
-                <li>You can skip around; do not panic if you can’t finish everything.</li>
-                <li>Use \( g = 9.8 \, \text{m/s}^2 \), speed of sound \( v_{\text{sound}} = 343 \, \text{m/s} \) unless told otherwise.</li>
-                <li>Answer in <strong>SI units</strong> unless the problem explicitly states otherwise.</li>
-            </ul>
+            <p>
+                <strong>Rules:</strong> <br>
+                1. Use \( g = 9.8 \, \text{m/s}^2 \), \( v_{\text{sound}} = 343 \, \text{m/s} \).<br>
+                2. Show your reasoning/work in the text boxes.<br>
+                3. Partial credit is better than no answer.
+            </p>
         </div>
 
         <!-- FORM START -->
@@ -203,18 +252,14 @@
                     <li>The speed of sound is \( 343 \, \text{m/s} \).</li>
                     <li>In the official result, Runner A finishes in <strong>9.784 s</strong>, Runner B in <strong>9.789 s</strong> (so A wins by <strong>0.005 s</strong>).</li>
                 </ul>
-
                 <p><strong>(a)</strong> If they instead had to react to the <strong>real gunshot</strong> (no speakers), by how much earlier would the closer runner hear the sound than the farther runner?</p>
                 <label>Part (a) Answer:</label>
                 <input type="text" name="P1_a_Answer" placeholder="e.g. 0.012 s">
-
                 <p><strong>(b)</strong> Using that time advantage, which runner would win, and by roughly how much time, assuming their running speeds stay the same as in the original race?</p>
                 <label>Part (b) Answer:</label>
                 <input type="text" name="P1_b_Answer" placeholder="e.g. Runner A by 0.05 s">
-
                 <label>Show your work / Reasoning:</label>
                 <textarea name="P1_Work"></textarea>
-                
                 <div class="hint" onclick="toggleHint('h1')">Show Hint</div>
                 <div id="h1" class="hint-content">
                     <ul>
@@ -241,13 +286,10 @@
                 <p>
                     <strong>Question:</strong> What <strong>maximum temperature change</strong> \( \Delta T_{\max} \) (in K) can the rail withstand before the stress reaches \( \sigma_{\max} \)?
                 </p>
-
                 <label>Answer (Max Delta T in K):</label>
                 <input type="text" name="P2_Answer">
-
                 <label>Show your work:</label>
                 <textarea name="P2_Work"></textarea>
-
                 <div class="hint" onclick="toggleHint('h2')">Show Hint</div>
                 <div id="h2" class="hint-content">
                     <ul>
@@ -270,20 +312,15 @@
                     <li>\( x(t) \) = length of the person’s shadow on the ground behind them,</li>
                     <li>The person starts at some initial distance \( s_0 \) at \( t = 0 \).</li>
                 </ul>
-
                 <p><strong>(a)</strong> Using similar triangles, express \( x \) in terms of \( s \), \( H \), and \( h \).</p>
                 <p><strong>(b)</strong> Write \( s(t) \) and then \( x(t) \) explicitly as a function of \( t \).</p>
                 <p><strong>(c)</strong> What is the <strong>acceleration</strong> of the tip of the shadow? (The tip is at distance \( s(t) + x(t) \) from the lamp.)</p>
-
                 <label>Part (a) & (b) Expressions:</label>
                 <textarea name="P3_Expressions" style="height: 60px;" placeholder="x = ... , s(t) = ..."></textarea>
-
                 <label>Part (c) Acceleration Value:</label>
                 <input type="text" name="P3_Acceleration">
-
                 <label>Show your work:</label>
                 <textarea name="P3_Work"></textarea>
-
                 <div class="hint" onclick="toggleHint('h3')">Show Hint</div>
                 <div id="h3" class="hint-content">
                     <ul>
@@ -317,13 +354,10 @@
                 <p>
                     <strong>Question:</strong> Estimate the plane’s <strong>speed in km/h</strong> based on these numbers.
                 </p>
-
                 <label>Answer (Speed in km/h):</label>
                 <input type="text" name="P4_Answer">
-
                 <label>Show your work:</label>
                 <textarea name="P4_Work"></textarea>
-
                 <div class="hint" onclick="toggleHint('h4')">Show Hint</div>
                 <div id="h4" class="hint-content">
                     <ul>
@@ -353,13 +387,10 @@
                 <p>
                     <strong>Question:</strong> Calculate the gauge pressure inside the bottle (the difference \( \Delta p \) between the pressure inside the bottle and the atmospheric pressure outside) just as the water spurts out.
                 </p>
-
                 <label>Answer (Gauge Pressure in Pa):</label>
                 <input type="text" name="P5_Answer">
-
                 <label>Show your work:</label>
                 <textarea name="P5_Work"></textarea>
-
                 <div class="hint" onclick="toggleHint('h5')">Show Hint</div>
                 <div id="h5" class="hint-content">
                     <ul>
@@ -399,13 +430,10 @@
                 <p>
                     <em>(Note: Be careful with the friction on Block B—it has friction from the table below it AND friction from Block A above it!)</em>
                 </p>
-
                 <label>Answer (Acceleration in m/s²):</label>
                 <input type="text" name="P6_Answer">
-
                 <label>Show your work:</label>
                 <textarea name="P6_Work"></textarea>
-
                 <div class="hint" onclick="toggleHint('h6')">Show Hint</div>
                 <div id="h6" class="hint-content">
                     <ul>
@@ -439,13 +467,10 @@
                 <p>
                     <strong>Question:</strong> Estimate the minimum speed \( v \) the car must travel so that the upward aerodynamic force from the bouncing air molecules balances the car's weight.
                 </p>
-
                 <label>Answer (Speed in m/s):</label>
                 <input type="text" name="P7_Answer">
-
                 <label>Show your work:</label>
                 <textarea name="P7_Work"></textarea>
-
                 <div class="hint" onclick="toggleHint('h7')">Show Hint</div>
                 <div id="h7" class="hint-content">
                     <ul>
@@ -478,16 +503,47 @@
             }
         }
 
+        // --- PASSWORD / START LOGIC ---
+        let testStarted = false;
+
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            const errorMsg = document.getElementById('errorMsg');
+            
+            // Password check (Case Sensitive)
+            if (input === "PPSCTRYOUTS") {
+                // Success: Hide welcome, show test
+                document.getElementById('welcomeScreen').style.display = 'none';
+                document.getElementById('testContainer').style.display = 'block';
+                
+                // Initialize Anti-Cheat
+                testStarted = true;
+                startTime = new Date();
+                recordEvent("TEST STARTED");
+
+                // Refresh MathJax to ensure hidden equations render correctly
+                if (window.MathJax) {
+                    MathJax.typesetPromise();
+                }
+
+            } else {
+                // Fail
+                errorMsg.style.display = 'block';
+            }
+        }
+
         // --- ANTI-CHEAT LOGIC ---
         let switchCount = 0;
         let logData = [];
-        let startTime = new Date();
+        let startTime = null; // Initialized only after password
         
         // Time tracking variables
         let totalTimeAway = 0; // in seconds
         let awayStartTime = null;
 
         function recordEvent(type) {
+            if (!testStarted) return; // Don't log before test starts
+
             let time = new Date();
             let timeDiff = Math.round((time - startTime) / 1000); // seconds since start
             let entry = `[${time.toLocaleTimeString()}] ${type} (T+${timeDiff}s)`;
@@ -496,6 +552,8 @@
         }
 
         function startAwayTimer() {
+            if (!testStarted) return;
+
             if (awayStartTime === null) {
                 awayStartTime = new Date();
                 document.getElementById('focusBar').classList.add('cheat-detected');
@@ -504,6 +562,8 @@
         }
 
         function stopAwayTimer() {
+            if (!testStarted) return;
+
             if (awayStartTime !== null) {
                 let now = new Date();
                 let diff = (now - awayStartTime) / 1000; // difference in seconds
@@ -516,7 +576,7 @@
         // Detect Visibility Change (Switching Tabs/Minimizing)
         document.addEventListener("visibilitychange", function() {
             if (document.visibilityState === 'hidden') {
-                switchCount++;
+                if (testStarted) switchCount++;
                 recordEvent("TAB HIDDEN/SWITCHED");
                 startAwayTimer();
             } else {
@@ -529,7 +589,7 @@
         window.addEventListener("blur", function() {
             // We double check visibility state to avoid duplicate logging
             if (document.visibilityState !== 'hidden') {
-                switchCount++;
+                if (testStarted) switchCount++;
                 recordEvent("WINDOW LOST FOCUS");
                 startAwayTimer();
             }
