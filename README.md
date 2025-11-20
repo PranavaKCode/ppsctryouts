@@ -1,6 +1,4 @@
 https://pranavakcode.github.io/ppsctryouts/
-Here’s a more general, portfolio-friendly description you can use in your README:
-
 ---
 
 ## Browser-Based Testing Platform with Anti-Cheat
