@@ -194,7 +194,15 @@
             z-index: 1500;
             display: none; /* Hidden until login */
             overflow: hidden;
+            /* Transition for minimize effect */
+            max-height: 250px; 
+            transition: max-height 0.3s ease-in-out;
         }
+        /* Minimized State */
+        #securityConsole.minimized {
+            max-height: 34px; /* Only header visible */
+        }
+        
         .console-header {
             background-color: #2c3e50;
             color: #fff;
@@ -207,6 +215,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            cursor: pointer; /* Clickable */
+        }
+        .console-header:hover {
+            background-color: #34495e;
+        }
+        .console-title-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .console-dot {
             width: 8px;
@@ -216,6 +233,13 @@
             animation: blink 1s infinite;
         }
         @keyframes blink { 50% { opacity: 0; } }
+        
+        .console-toggle-icon {
+            font-size: 14px;
+            font-weight: bold;
+            color: #bdc3c7;
+        }
+
         #consoleOutput {
             height: 200px;
             overflow-y: auto;
@@ -348,9 +372,13 @@
 
     <!-- ================= SECURITY CONSOLE (Side Panel) ================= -->
     <div id="securityConsole">
-        <div class="console-header">
-            <span>🔒 Proctor Log</span>
-            <div class="console-dot"></div>
+        <!-- Clickable Header for Toggle -->
+        <div class="console-header" onclick="toggleConsole()">
+            <div class="console-title-group">
+                <span>🔒 Proctor Log</span>
+                <div class="console-dot"></div>
+            </div>
+            <span class="console-toggle-icon" id="consoleIcon">−</span>
         </div>
         <div id="consoleOutput">
             <!-- Logs appear here dynamically -->
@@ -793,6 +821,20 @@
             } else {
                 // Fail
                 errorMsg.style.display = 'block';
+            }
+        }
+
+        // --- SECURITY CONSOLE TOGGLE ---
+        function toggleConsole() {
+            const consoleDiv = document.getElementById('securityConsole');
+            const icon = document.getElementById('consoleIcon');
+            
+            consoleDiv.classList.toggle('minimized');
+            
+            if (consoleDiv.classList.contains('minimized')) {
+                icon.innerText = "+";
+            } else {
+                icon.innerText = "−";
             }
         }
 
