@@ -29,6 +29,12 @@
         h1, h2, h3 {
             color: #2c3e50;
         }
+        ul {
+            margin-top: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
         .header {
             border-bottom: 2px solid #eee;
             padding-bottom: 20px;
@@ -58,16 +64,24 @@
             margin-top: 10px;
             display: inline-block;
             cursor: pointer;
+            user-select: none;
+        }
+        .hint:hover {
+            background: #ddd;
         }
         .hint-content {
             display: none;
             margin-top: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px dashed #ccc;
             font-style: italic;
         }
         label {
             display: block;
             margin-top: 15px;
             font-weight: bold;
+            color: #2c3e50;
         }
         input[type="text"], textarea, input[type="email"], input[type="number"] {
             width: 100%;
@@ -76,6 +90,7 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
+            font-family: inherit;
         }
         textarea {
             height: 100px;
@@ -91,6 +106,7 @@
             cursor: pointer;
             width: 100%;
             margin-top: 20px;
+            transition: background 0.3s;
         }
         button.submit-btn:hover {
             background-color: #219150;
@@ -107,6 +123,12 @@
         .cheat-detected {
             background: #e74c3c !important;
         }
+        blockquote {
+            border-left: 3px solid #ccc;
+            margin: 10px 0;
+            padding-left: 15px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
@@ -115,22 +137,25 @@
 
     <div class="container">
         <div class="header">
-            <h1>Physics Brawl Tryouts</h1>
+            <h1>Physics Brawl Tryouts – Short Set</h1>
             <p><strong>Time suggestion:</strong> 40–50 minutes</p>
+            
             <div class="warning">
                 ⚠️ <strong>ANTI-CHEAT ACTIVE:</strong> Do not switch tabs or windows. 
                 Your browser focus activity is being recorded and will be sent with your submission.
             </div>
-            <p>
-                <strong>Rules:</strong> <br>
-                1. Use \( g = 9.8 \, \text{m/s}^2 \), \( v_{\text{sound}} = 343 \, \text{m/s} \).<br>
-                2. Show your reasoning/work in the text boxes.<br>
-                3. Partial credit is better than no answer.
-            </p>
+
+            <p><strong>Rules:</strong></p>
+            <ul>
+                <li>You may use a calculator.</li>
+                <li>Show your work and reasoning. Partial credit > random answers.</li>
+                <li>You can skip around; do not panic if you can’t finish everything.</li>
+                <li>Use \( g = 9.8 \, \text{m/s}^2 \), speed of sound \( v_{\text{sound}} = 343 \, \text{m/s} \) unless told otherwise.</li>
+                <li>Answer in <strong>SI units</strong> unless the problem explicitly states otherwise.</li>
+            </ul>
         </div>
 
         <!-- FORM START -->
-        <!-- REPLACE THE URL BELOW WITH YOUR FORMSPREE ENDPOINT -->
         <form action="https://formspree.io/f/myzopqgk" method="POST" id="quizForm">
             
             <!-- Candidate Info -->
@@ -146,19 +171,20 @@
             <div class="problem">
                 <h3>Problem 1 – Sound and the Sprint Start</h3>
                 <p>
-                    Two sprinters are separated by <strong>3.66 m</strong>. The pistol fires near Lane 1. 
-                    Assume standard speed of sound. In official results, A finishes in <strong>9.784 s</strong>, B in <strong>9.789 s</strong>.
+                    In a 100 m race, two sprinters run in lanes whose centers are separated sideways by **3.66 m**. The starter’s pistol is fired near lane 1. Assume:
                 </p>
-                <p>
-                    <strong>(a)</strong> If they reacted to the real gunshot (no speakers), by how much earlier would the closer runner hear the sound?
-                    <br>
-                    <strong>(b)</strong> Using that time advantage, which runner would win and by how much?
-                </p>
+                <ul>
+                    <li>Both sprinters start exactly when they **hear** the gun.</li>
+                    <li>The speed of sound is \( 343 \, \text{m/s} \).</li>
+                    <li>In the official result, Runner A finishes in **9.784 s**, Runner B in **9.789 s** (so A wins by **0.005 s**).</li>
+                </ul>
 
-                <label>Part (a) Answer (Time difference):</label>
+                <p><strong>(a)</strong> If they instead had to react to the **real gunshot** (no speakers), by how much earlier would the closer runner hear the sound than the farther runner?</p>
+                <label>Part (a) Answer:</label>
                 <input type="text" name="P1_a_Answer" placeholder="e.g. 0.012 s">
 
-                <label>Part (b) Answer (Winner & Margin):</label>
+                <p><strong>(b)</strong> Using that time advantage, which runner would win, and by roughly how much time, assuming their running speeds stay the same as in the original race?</p>
+                <label>Part (b) Answer:</label>
                 <input type="text" name="P1_b_Answer" placeholder="e.g. Runner A by 0.05 s">
 
                 <label>Show your work / Reasoning:</label>
@@ -166,7 +192,10 @@
                 
                 <div class="hint" onclick="toggleHint('h1')">Show Hint</div>
                 <div id="h1" class="hint-content">
-                    Time diff = \( \Delta t = \frac{\Delta d}{v_{sound}} \). Compare this \( \Delta t \) to the original winning margin.
+                    <ul>
+                        <li>(a) Time difference = \( \Delta t = \frac{\Delta d}{v_{\text{sound}}} \), where \( \Delta d \) is 3.66 m.</li>
+                        <li>(b) Think: if the closer runner **hears earlier**, they can start earlier. Compare that hearing-time difference to the original 0.005 s win margin.</li>
+                    </ul>
                 </div>
             </div>
 
@@ -174,11 +203,18 @@
             <div class="problem">
                 <h3>Problem 2 – Stressed Rail</h3>
                 <p>
-                    A steel rail is held rigidly. 
-                    \( E = 195 \, \text{GPa} \), \( \alpha = 1.63 \times 10^{-5} \, \text{K}^{-1} \), \( \sigma_{\max} = 600 \, \text{MPa} \).
+                    A long steel rail is held rigidly so that it **cannot expand**. Steel has:
+                </p>
+                <ul>
+                    <li>Young’s modulus \( E = 195 \, \text{GPa} = 1.95 \times 10^{11} \, \text{Pa} \)</li>
+                    <li>Linear expansion coefficient \( \alpha = 1.63 \times 10^{-5} \, \text{K}^{-1} \)</li>
+                    <li>Maximum allowed stress in the rail \( \sigma_{\max} = 600 \, \text{MPa} = 6.0 \times 10^{8} \, \text{Pa} \)</li>
+                </ul>
+                <p>
+                    If the temperature increases by \( \Delta T \), the rail “wants” to expand, but the constraints prevent it, so stress builds up instead.
                 </p>
                 <p>
-                    <strong>Question:</strong> What maximum temperature change \( \Delta T_{\max} \) can the rail withstand before hitting max stress?
+                    <strong>Question:</strong> What **maximum temperature change** \( \Delta T_{\max} \) (in K) can the rail withstand before the stress reaches \( \sigma_{\max} \)?
                 </p>
 
                 <label>Answer (Max Delta T in K):</label>
@@ -189,7 +225,11 @@
 
                 <div class="hint" onclick="toggleHint('h2')">Show Hint</div>
                 <div id="h2" class="hint-content">
-                    Combine \( \sigma = E \epsilon \) and \( \epsilon = \alpha \Delta T \). Solve for \( \Delta T \).
+                    <ul>
+                        <li>For free expansion: \( \frac{\Delta L}{L} = \alpha \Delta T \).</li>
+                        <li>For elastic stretching: \( \sigma = E \varepsilon \), where \( \varepsilon = \frac{\Delta L}{L} \).</li>
+                        <li>Combine: \( \sigma = E \alpha \Delta T \Rightarrow \Delta T = \frac{\sigma}{E \alpha} \).</li>
+                    </ul>
                 </div>
             </div>
 
@@ -197,16 +237,21 @@
             <div class="problem">
                 <h3>Problem 3 – Shadow Walking</h3>
                 <p>
-                    Lamp height \( H = 3.2 \, \text{m} \). Person height \( h = 1.8 \, \text{m} \). Walking speed \( v = 1.5 \, \text{m/s} \).
+                    A street lamp is a point light source at height \( H = 3.2 \, \text{m} \). A person of height \( h = 1.8 \, \text{m} \) walks **directly away** from the lamp along flat ground at constant speed \( v = 1.5 \, \text{m/s} \).
                 </p>
-                <p>
-                    <strong>(a)</strong> Express shadow length \( x \) in terms of distance \( s \).<br>
-                    <strong>(b)</strong> Write \( x(t) \) explicitly.<br>
-                    <strong>(c)</strong> What is the <strong>acceleration</strong> of the tip of the shadow?
-                </p>
+                <p>Let:</p>
+                <ul>
+                    <li>\( s(t) \) = horizontal distance from lamp to the person at time \( t \),</li>
+                    <li>\( x(t) \) = length of the person’s shadow on the ground behind them,</li>
+                    <li>The person starts at some initial distance \( s_0 \) at \( t = 0 \).</li>
+                </ul>
+
+                <p><strong>(a)</strong> Using similar triangles, express \( x \) in terms of \( s \), \( H \), and \( h \).</p>
+                <p><strong>(b)</strong> Write \( s(t) \) and then \( x(t) \) explicitly as a function of \( t \).</p>
+                <p><strong>(c)</strong> What is the **acceleration** of the tip of the shadow? (The tip is at distance \( s(t) + x(t) \) from the lamp.)</p>
 
                 <label>Part (a) & (b) Expressions:</label>
-                <textarea name="P3_Expressions" style="height: 60px;"></textarea>
+                <textarea name="P3_Expressions" style="height: 60px;" placeholder="x = ... , s(t) = ..."></textarea>
 
                 <label>Part (c) Acceleration Value:</label>
                 <input type="text" name="P3_Acceleration">
@@ -216,7 +261,12 @@
 
                 <div class="hint" onclick="toggleHint('h3')">Show Hint</div>
                 <div id="h3" class="hint-content">
-                    Similar triangles: \( \frac{s+x}{H} = \frac{x}{h} \). If \( s(t) \) is linear (constant velocity), what kind of function is \( x(t) \)?
+                    <ul>
+                        <li>Draw the lamp, the person, and the shadow tip; you get two similar right triangles.</li>
+                        <li>Ratio: \( \frac{s + x}{H} = \frac{x}{h} \). Solve for \( x \) in terms of \( s \).</li>
+                        <li>The person moves at constant speed: \( s(t) = s_0 + vt \).</li>
+                        <li>Look at the form of \( x(t) \): is it linear, quadratic, etc.? Then decide what the acceleration is.</li>
+                    </ul>
                 </div>
             </div>
 
@@ -224,11 +274,23 @@
             <div class="problem">
                 <h3>Problem 4 – Thumb-Rule Plane Spotting</h3>
                 <p>
-                    Rule: "1 thumb = \( 2.5^\circ \)". Plane is in view for 10s, sweeps <strong>7.5 thumbs</strong>. 
-                    Plane appears <strong>0.5 thumbs</strong> long. Actual length = 40m.
+                    Martin looks out the window and sees a passenger plane crossing his field of view. He uses the rule:
+                </p>
+                <blockquote>
+                    “1 thumb at arm’s length = \( 2.5^\circ \) of angle.”
+                </blockquote>
+                <p>He estimates:</p>
+                <ul>
+                    <li>The plane stays in view for **10 s**.</li>
+                    <li>During that time, it sweeps an angle of **7.5 thumbs** across the sky.</li>
+                    <li>So the angular distance it travels is \( 7.5 \times 2.5^\circ \).</li>
+                    <li>The plane itself appears about **half a thumb** long, and he guesses it’s a Boeing 737-800 of actual length \( 40 \, \text{m} \) (you may use 40 m).</li>
+                </ul>
+                <p>
+                    Assume the plane flies in a straight line perpendicular to Martin’s line of sight (across his view).
                 </p>
                 <p>
-                    <strong>Question:</strong> Estimate the plane's speed in <strong>km/h</strong>.
+                    <strong>Question:</strong> Estimate the plane’s **speed in km/h** based on these numbers.
                 </p>
 
                 <label>Answer (Speed in km/h):</label>
@@ -239,7 +301,12 @@
 
                 <div class="hint" onclick="toggleHint('h4')">Show Hint</div>
                 <div id="h4" class="hint-content">
-                    Angular size \( \theta \approx \frac{\text{length}}{\text{distance}} \). Total distance traveled \( \approx \frac{\text{total angle}}{\text{angular size}} \times \text{plane length} \).
+                    <ul>
+                        <li>Convert thumbs → degrees for total angular travel and angular size.</li>
+                        <li>Treat “angular size” like: \( \frac{\text{length of plane}}{\text{distance}} \approx \text{angular size in radians} \)</li>
+                        <li>Then total path length \( \approx \frac{\text{angular travel}}{\text{angular size}} \times (\text{length of plane}) \).</li>
+                        <li>Finally, \( v = \frac{\text{distance traveled}}{\text{time}} \), then convert m/s → km/h by multiplying by 3.6.</li>
+                    </ul>
                 </div>
             </div>
 
@@ -252,9 +319,6 @@
     </div>
 
     <script>
-        // --- MATHJAX REFRESH ---
-        // Ensures math looks good if inserted dynamically, though here it's static.
-        
         // --- HINT TOGGLE ---
         function toggleHint(id) {
             var x = document.getElementById(id);
