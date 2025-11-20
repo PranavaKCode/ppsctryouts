@@ -66,8 +66,8 @@ This project provides:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/<your-username>/<repo-name>.git
-   cd <repo-name>
+   git clone https://github.com/PranavaKCode/ppsctryouts.git
+   cd ppsctryouts
    ```
 2. Open `index.html` in a browser to test locally.
 3. Replace the Formspree endpoint in the `<form>` tag with your own if needed.
@@ -75,20 +75,3 @@ This project provides:
 5. Share the GitHub Pages URL and the access password with test takers.
 
 ---
-
-###  Customization
-
-* **Change the questions** by editing the problem text, hints, and input field names in the HTML.
-* **Adjust the structure** by adding or removing sections or problems.
-* **Modify the password and intro content** in the gate screen logic.
-* **Tune anti cheat rules** by changing which events are logged or how strict the warnings are.
-
----
-
-###  Possible Extensions
-
-* Add a visible timer and send start and submit times in the form.
-* Add simple auto grading for numeric or multiple choice questions.
-* Export submissions to CSV or integrate with a custom backend or spreadsheet.
-
-If you want, I can also write a one line short description for the GitHub repo tagline.
