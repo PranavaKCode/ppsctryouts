@@ -215,7 +215,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            cursor: pointer; /* Clickable */
+            cursor: move; /* Changed to move for dragging */
+            user-select: none;
         }
         .console-header:hover {
             background-color: #34495e;
@@ -234,14 +235,21 @@
         }
         @keyframes blink { 50% { opacity: 0; } }
         
+        /* Stop blinking when minimized */
         #securityConsole.minimized .console-dot {
             animation: none;
             opacity: 1; 
         }
+
         .console-toggle-icon {
             font-size: 14px;
             font-weight: bold;
             color: #bdc3c7;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+        .console-toggle-icon:hover {
+            color: white;
         }
 
         #consoleOutput {
@@ -376,13 +384,14 @@
 
     <!-- ================= SECURITY CONSOLE (Side Panel) ================= -->
     <div id="securityConsole">
-        <!-- Clickable Header for Toggle -->
-        <div class="console-header" onclick="toggleConsole()">
+        <!-- Header with Drag ID -->
+        <div class="console-header" id="consoleHeader">
             <div class="console-title-group">
                 <span>🔒 Proctor Log</span>
                 <div class="console-dot"></div>
             </div>
-            <span class="console-toggle-icon" id="consoleIcon">−</span>
+            <!-- Onclick moved to icon only -->
+            <span class="console-toggle-icon" id="consoleIcon" onclick="toggleConsole()">−</span>
         </div>
         <div id="consoleOutput">
             <!-- Logs appear here dynamically -->
@@ -751,12 +760,17 @@
         }
 
         // --- DRAG FUNCTIONALITY ---
-        dragElement(document.getElementById("calculatorPopup"));
+        // Initialize drag for both elements
+        makeDraggable(document.getElementById("calculatorPopup"), document.getElementById("calcHeader"));
+        makeDraggable(document.getElementById("securityConsole"), document.getElementById("consoleHeader"));
 
-        function dragElement(elmnt) {
+        function makeDraggable(elmnt, handle) {
             var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-            if (document.getElementById("calcHeader")) {
-                document.getElementById("calcHeader").onmousedown = dragMouseDown;
+            
+            if (handle) {
+                handle.onmousedown = dragMouseDown;
+            } else {
+                elmnt.onmousedown = dragMouseDown;
             }
 
             function dragMouseDown(e) {
