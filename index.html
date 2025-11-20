@@ -19,7 +19,7 @@
             padding: 20px;
         }
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
             background: white;
             padding: 40px;
@@ -28,6 +28,15 @@
         }
         h1, h2, h3 {
             color: #2c3e50;
+        }
+        .section-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-align: center;
         }
         ul {
             margin-top: 0;
@@ -55,6 +64,9 @@
             padding: 20px;
             margin-bottom: 30px;
         }
+        .problem.section2 {
+            border-left-color: #8e44ad; /* Purple for section 2 */
+        }
         .hint {
             font-size: 0.9em;
             color: #666;
@@ -65,6 +77,7 @@
             display: inline-block;
             cursor: pointer;
             user-select: none;
+            font-weight: 600;
         }
         .hint:hover {
             background: #ddd;
@@ -75,7 +88,7 @@
             padding: 10px;
             background-color: #fff;
             border: 1px dashed #ccc;
-            font-style: italic;
+            border-radius: 4px;
         }
         label {
             display: block;
@@ -93,7 +106,7 @@
             font-family: inherit;
         }
         textarea {
-            height: 100px;
+            height: 80px;
             font-family: monospace;
         }
         button.submit-btn {
@@ -107,6 +120,7 @@
             width: 100%;
             margin-top: 20px;
             transition: background 0.3s;
+            font-weight: bold;
         }
         button.submit-btn:hover {
             background-color: #219150;
@@ -119,6 +133,7 @@
             height: 5px;
             background: #27ae60;
             z-index: 1000;
+            transition: background-color 0.3s;
         }
         .cheat-detected {
             background: #e74c3c !important;
@@ -128,6 +143,7 @@
             margin: 10px 0;
             padding-left: 15px;
             color: #555;
+            font-style: italic;
         }
     </style>
 </head>
@@ -137,12 +153,12 @@
 
     <div class="container">
         <div class="header">
-            <h1>Physics Brawl Tryouts – Short Set</h1>
-            <p><strong>Time suggestion:</strong> 40–50 minutes</p>
+            <h1>Physics Brawl Tryouts</h1>
+            <p><strong>Time suggestion:</strong> 40–60 minutes</p>
             
             <div class="warning">
                 ⚠️ <strong>ANTI-CHEAT ACTIVE:</strong> Do not switch tabs or windows. 
-                Your browser focus activity is being recorded and will be sent with your submission.
+                Your focus activity and <strong>time spent away</strong> from this page is being recorded.
             </div>
 
             <p><strong>Rules:</strong></p>
@@ -159,7 +175,7 @@
         <form action="https://formspree.io/f/myzopqgk" method="POST" id="quizForm">
             
             <!-- Candidate Info -->
-            <div class="problem" style="border-left-color: #2c3e50;">
+            <div class="problem" style="border-left-color: #333;">
                 <h3>Candidate Information</h3>
                 <label>Full Name</label>
                 <input type="text" name="Full Name" required>
@@ -167,19 +183,24 @@
                 <input type="email" name="Email" required>
             </div>
 
+            <!-- ================= SECTION 1 ================= -->
+            <div class="section-header">
+                <h2>Section 1 – Short Set</h2>
+            </div>
+
             <!-- Problem 1 -->
             <div class="problem">
                 <h3>Problem 1 – Sound and the Sprint Start</h3>
                 <p>
-                    In a 100 m race, two sprinters run in lanes whose centers are separated sideways by **3.66 m**. The starter’s pistol is fired near lane 1. Assume:
+                    In a 100 m race, two sprinters run in lanes whose centers are separated sideways by <strong>3.66 m</strong>. The starter’s pistol is fired near lane 1. Assume:
                 </p>
                 <ul>
-                    <li>Both sprinters start exactly when they **hear** the gun.</li>
+                    <li>Both sprinters start exactly when they <strong>hear</strong> the gun.</li>
                     <li>The speed of sound is \( 343 \, \text{m/s} \).</li>
-                    <li>In the official result, Runner A finishes in **9.784 s**, Runner B in **9.789 s** (so A wins by **0.005 s**).</li>
+                    <li>In the official result, Runner A finishes in <strong>9.784 s</strong>, Runner B in <strong>9.789 s</strong> (so A wins by <strong>0.005 s</strong>).</li>
                 </ul>
 
-                <p><strong>(a)</strong> If they instead had to react to the **real gunshot** (no speakers), by how much earlier would the closer runner hear the sound than the farther runner?</p>
+                <p><strong>(a)</strong> If they instead had to react to the <strong>real gunshot</strong> (no speakers), by how much earlier would the closer runner hear the sound than the farther runner?</p>
                 <label>Part (a) Answer:</label>
                 <input type="text" name="P1_a_Answer" placeholder="e.g. 0.012 s">
 
@@ -194,7 +215,7 @@
                 <div id="h1" class="hint-content">
                     <ul>
                         <li>(a) Time difference = \( \Delta t = \frac{\Delta d}{v_{\text{sound}}} \), where \( \Delta d \) is 3.66 m.</li>
-                        <li>(b) Think: if the closer runner **hears earlier**, they can start earlier. Compare that hearing-time difference to the original 0.005 s win margin.</li>
+                        <li>(b) Think: if the closer runner <strong>hears earlier</strong>, they can start earlier. Compare that hearing-time difference to the original 0.005 s win margin.</li>
                     </ul>
                 </div>
             </div>
@@ -203,7 +224,7 @@
             <div class="problem">
                 <h3>Problem 2 – Stressed Rail</h3>
                 <p>
-                    A long steel rail is held rigidly so that it **cannot expand**. Steel has:
+                    A long steel rail is held rigidly so that it <strong>cannot expand</strong>. Steel has:
                 </p>
                 <ul>
                     <li>Young’s modulus \( E = 195 \, \text{GPa} = 1.95 \times 10^{11} \, \text{Pa} \)</li>
@@ -214,7 +235,7 @@
                     If the temperature increases by \( \Delta T \), the rail “wants” to expand, but the constraints prevent it, so stress builds up instead.
                 </p>
                 <p>
-                    <strong>Question:</strong> What **maximum temperature change** \( \Delta T_{\max} \) (in K) can the rail withstand before the stress reaches \( \sigma_{\max} \)?
+                    <strong>Question:</strong> What <strong>maximum temperature change</strong> \( \Delta T_{\max} \) (in K) can the rail withstand before the stress reaches \( \sigma_{\max} \)?
                 </p>
 
                 <label>Answer (Max Delta T in K):</label>
@@ -237,7 +258,7 @@
             <div class="problem">
                 <h3>Problem 3 – Shadow Walking</h3>
                 <p>
-                    A street lamp is a point light source at height \( H = 3.2 \, \text{m} \). A person of height \( h = 1.8 \, \text{m} \) walks **directly away** from the lamp along flat ground at constant speed \( v = 1.5 \, \text{m/s} \).
+                    A street lamp is a point light source at height \( H = 3.2 \, \text{m} \). A person of height \( h = 1.8 \, \text{m} \) walks <strong>directly away</strong> from the lamp along flat ground at constant speed \( v = 1.5 \, \text{m/s} \).
                 </p>
                 <p>Let:</p>
                 <ul>
@@ -248,7 +269,7 @@
 
                 <p><strong>(a)</strong> Using similar triangles, express \( x \) in terms of \( s \), \( H \), and \( h \).</p>
                 <p><strong>(b)</strong> Write \( s(t) \) and then \( x(t) \) explicitly as a function of \( t \).</p>
-                <p><strong>(c)</strong> What is the **acceleration** of the tip of the shadow? (The tip is at distance \( s(t) + x(t) \) from the lamp.)</p>
+                <p><strong>(c)</strong> What is the <strong>acceleration</strong> of the tip of the shadow? (The tip is at distance \( s(t) + x(t) \) from the lamp.)</p>
 
                 <label>Part (a) & (b) Expressions:</label>
                 <textarea name="P3_Expressions" style="height: 60px;" placeholder="x = ... , s(t) = ..."></textarea>
@@ -281,16 +302,16 @@
                 </blockquote>
                 <p>He estimates:</p>
                 <ul>
-                    <li>The plane stays in view for **10 s**.</li>
-                    <li>During that time, it sweeps an angle of **7.5 thumbs** across the sky.</li>
+                    <li>The plane stays in view for <strong>10 s</strong>.</li>
+                    <li>During that time, it sweeps an angle of <strong>7.5 thumbs</strong> across the sky.</li>
                     <li>So the angular distance it travels is \( 7.5 \times 2.5^\circ \).</li>
-                    <li>The plane itself appears about **half a thumb** long, and he guesses it’s a Boeing 737-800 of actual length \( 40 \, \text{m} \) (you may use 40 m).</li>
+                    <li>The plane itself appears about <strong>half a thumb</strong> long, and he guesses it’s a Boeing 737-800 of actual length \( 40 \, \text{m} \) (you may use 40 m).</li>
                 </ul>
                 <p>
                     Assume the plane flies in a straight line perpendicular to Martin’s line of sight (across his view).
                 </p>
                 <p>
-                    <strong>Question:</strong> Estimate the plane’s **speed in km/h** based on these numbers.
+                    <strong>Question:</strong> Estimate the plane’s <strong>speed in km/h</strong> based on these numbers.
                 </p>
 
                 <label>Answer (Speed in km/h):</label>
@@ -310,9 +331,133 @@
                 </div>
             </div>
 
+            <!-- ================= SECTION 2 ================= -->
+            <div class="section-header" style="background-color: #8e44ad;">
+                <h2>Section 2 – Optional Challenge</h2>
+                <p style="margin:0; font-size: 0.9em;">Topics: Fluid Dynamics, Newton's Laws, Momentum</p>
+            </div>
+
+            <!-- Problem 5 -->
+            <div class="problem section2">
+                <h3>Problem 5 – The Leaking Bottle (Fluids)</h3>
+                <p>
+                    A bottle of sparkling water falls and cracks when it hits the floor. A small hole opens up, and water spurts out at an angle of \( \alpha = 70^\circ \) (measured from the horizontal ground). The stream of water reaches a maximum vertical height of \( h = 1.20 \, \text{m} \) above the hole.
+                </p>
+                <p>
+                    Assume the velocity of the water inside the bottle is negligible compared to the velocity at the hole. The density of water is \( \rho = 1000 \, \text{kg/m}^3 \).
+                </p>
+                <p>
+                    <strong>Question:</strong> Calculate the gauge pressure inside the bottle (the difference \( \Delta p \) between the pressure inside the bottle and the atmospheric pressure outside) just as the water spurts out.
+                </p>
+
+                <label>Answer (Gauge Pressure in Pa):</label>
+                <input type="text" name="P5_Answer">
+
+                <label>Show your work:</label>
+                <textarea name="P5_Work"></textarea>
+
+                <div class="hint" onclick="toggleHint('h5')">Show Hint</div>
+                <div id="h5" class="hint-content">
+                    <ul>
+                        <li><strong>Step 1 (Kinematics/Energy):</strong> Find the initial total velocity \( v \) of the water jet. You know the max height \( h \) depends on the vertical component of velocity \( v_y = v \sin \alpha \).</li>
+                        <li><strong>Step 2 (Bernoulli):</strong> Use Bernoulli’s equation between the inside of the bottle (velocity \( \approx 0 \), pressure \( p \)) and the air just outside the hole (velocity \( v \), pressure \( p_{atm} \)).</li>
+                        <li>\( p + \text{potential} = p_{atm} + \frac{1}{2}\rho v^2 \).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Problem 6 -->
+            <div class="problem section2">
+                <h3>Problem 6 – Pulleys and Friction (Dynamics)</h3>
+                <p>
+                    Consider a system of three identical blocks, each of mass \( m = 0.5 \, \text{kg} \).
+                </p>
+                <ul>
+                    <li>Block A sits on top of Block B.</li>
+                    <li>Block B sits on a horizontal table.</li>
+                    <li>Block C hangs off the edge of the table.</li>
+                </ul>
+                <p>
+                    The blocks are connected by massless ropes and massless, frictionless pulleys such that:
+                </p>
+                <ul>
+                    <li>A rope pulls Block A to the left.</li>
+                    <li>A rope pulls Block B to the right.</li>
+                    <li>Both ropes eventually connect to the hanging Block C (meaning the weight of Block C drives the motion of A and B).</li>
+                </ul>
+                <p>
+                    Because they are all connected by one continuous taut rope system, they all move with the same magnitude of acceleration \( |a| \). 
+                    The coefficient of kinetic friction between all surfaces (between A and B, and between B and Table) is \( f = 0.10 \).
+                </p>
+                <p>
+                    <strong>Question:</strong> Calculate the magnitude of the acceleration \( a \) of the blocks.
+                </p>
+                <p>
+                    <em>(Note: Be careful with the friction on Block B—it has friction from the table below it AND friction from Block A above it!)</em>
+                </p>
+
+                <label>Answer (Acceleration in m/s²):</label>
+                <input type="text" name="P6_Answer">
+
+                <label>Show your work:</label>
+                <textarea name="P6_Work"></textarea>
+
+                <div class="hint" onclick="toggleHint('h6')">Show Hint</div>
+                <div id="h6" class="hint-content">
+                    <ul>
+                        <li>Draw Free Body Diagrams (FBD) for all three blocks.</li>
+                        <li><strong>Block A:</strong> Is moving left. Friction opposes motion (acts right). Normal force comes from B.</li>
+                        <li><strong>Block B:</strong> Is moving right. Friction from the table acts left. Friction from Block A (Newton’s 3rd law) also acts left. The Normal force from the table must support both A and B.</li>
+                        <li><strong>Block C:</strong> Gravity acts down, Tension acts up.</li>
+                        <li>Write \( F_{net} = ma \) for each and solve the system.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Problem 7 -->
+            <div class="problem section2">
+                <h3>Problem 7 – F1 Car on the Ceiling (Challenge)</h3>
+                <p>
+                    Formula 1 cars are designed with aerodynamic shapes (like an inverted wing) to push them down onto the track for better grip. Theoretically, if they go fast enough, they could drive upside down on a ceiling.
+                </p>
+                <p>
+                    Model an F1 car as a right-angled triangular prism:
+                </p>
+                <ul>
+                    <li>Length (base): \( d = 5.1 \, \text{m} \)</li>
+                    <li>Height: \( h = 1.0 \, \text{m} \)</li>
+                    <li>Width: \( w = 1.8 \, \text{m} \)</li>
+                    <li>Total Mass: \( M = 800 \, \text{kg} \)</li>
+                </ul>
+                <p>
+                    The car drives on the ceiling. Air particles (density \( \rho = 1.2 \, \text{kg/m}^3 \)) are stationary relative to the ceiling. The car hits them with velocity \( v \). Assume the air particles bounce elastically off the slanted surface of the car.
+                </p>
+                <p>
+                    <strong>Question:</strong> Estimate the minimum speed \( v \) the car must travel so that the upward aerodynamic force from the bouncing air molecules balances the car's weight.
+                </p>
+
+                <label>Answer (Speed in m/s):</label>
+                <input type="text" name="P7_Answer">
+
+                <label>Show your work:</label>
+                <textarea name="P7_Work"></textarea>
+
+                <div class="hint" onclick="toggleHint('h7')">Show Hint</div>
+                <div id="h7" class="hint-content">
+                    <ul>
+                        <li><strong>Geometry:</strong> Find the angle of the car's slope: \( \tan \alpha = h/d \).</li>
+                        <li><strong>Momentum:</strong> In time \( \Delta t \), the car sweeps through a volume of air. Calculate the mass of that air.</li>
+                        <li><strong>Collision:</strong> The particles hit the slope and bounce elastically. The angle of incidence equals the angle of reflection.</li>
+                        <li>The change in momentum per unit time is the Force. You are looking for the <strong>vertical component</strong> of the force exerted by the air on the car.</li>
+                        <li><strong>Equation:</strong> Set \( F_{vertical} = Mg \) and solve for \( v \).</li>
+                    </ul>
+                </div>
+            </div>
+
             <!-- HIDDEN INPUTS FOR LOGS -->
             <input type="hidden" name="Focus_Log" id="focusLogInput">
             <input type="hidden" name="Total_Tabs_Switches" id="switchCountInput">
+            <input type="hidden" name="Total_Time_Away_Seconds" id="timeAwayInput">
 
             <button type="submit" class="submit-btn" onclick="prepareSubmission()">Submit Answers</button>
         </form>
@@ -333,6 +478,10 @@
         let switchCount = 0;
         let logData = [];
         let startTime = new Date();
+        
+        // Time tracking variables
+        let totalTimeAway = 0; // in seconds
+        let awayStartTime = null;
 
         function recordEvent(type) {
             let time = new Date();
@@ -342,41 +491,63 @@
             console.log(entry);
         }
 
+        function startAwayTimer() {
+            if (awayStartTime === null) {
+                awayStartTime = new Date();
+                document.getElementById('focusBar').classList.add('cheat-detected');
+                document.title = "⚠️ COME BACK!";
+            }
+        }
+
+        function stopAwayTimer() {
+            if (awayStartTime !== null) {
+                let now = new Date();
+                let diff = (now - awayStartTime) / 1000; // difference in seconds
+                totalTimeAway += diff;
+                awayStartTime = null;
+                document.title = "Physics Brawl Tryouts";
+            }
+        }
+
         // Detect Visibility Change (Switching Tabs/Minimizing)
         document.addEventListener("visibilitychange", function() {
             if (document.visibilityState === 'hidden') {
                 switchCount++;
                 recordEvent("TAB HIDDEN/SWITCHED");
-                document.getElementById('focusBar').classList.add('cheat-detected');
-                document.title = "⚠️ COME BACK!";
+                startAwayTimer();
             } else {
                 recordEvent("TAB RESTORED");
-                document.title = "Physics Brawl Tryouts";
+                stopAwayTimer();
             }
         });
 
         // Detect Window Blur (Clicking outside browser)
         window.addEventListener("blur", function() {
-            // We double check visibility state to avoid duplicate logging with visibilitychange
+            // We double check visibility state to avoid duplicate logging
             if (document.visibilityState !== 'hidden') {
                 switchCount++;
                 recordEvent("WINDOW LOST FOCUS");
-                document.getElementById('focusBar').classList.add('cheat-detected');
+                startAwayTimer();
             }
         });
 
         window.addEventListener("focus", function() {
             recordEvent("WINDOW GAINED FOCUS");
+            stopAwayTimer();
         });
 
         // --- PREPARE SUBMISSION ---
         function prepareSubmission() {
+            // Ensure timer is stopped if they submit while blurred (unlikely but possible)
+            stopAwayTimer();
+
             // Populate hidden fields
             document.getElementById('focusLogInput').value = logData.join("\n");
             document.getElementById('switchCountInput').value = switchCount;
+            document.getElementById('timeAwayInput').value = Math.round(totalTimeAway);
             
             if(switchCount > 0) {
-                alert("Note: Your tab switching history (" + switchCount + " times) will be sent to the organizer.");
+                alert("Submission Note: \nTabs Switched: " + switchCount + " times.\nTotal Time Away: " + Math.round(totalTimeAway) + " seconds.\nThis data will be sent to the organizer.");
             }
         }
     </script>
