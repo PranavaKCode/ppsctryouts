@@ -178,65 +178,157 @@
             display: none;
         }
 
-        /* CALCULATOR STYLES */
+        /* --- SECURITY CONSOLE STYLES --- */
+        #securityConsole {
+            position: fixed;
+            left: 10px;
+            top: 80px;
+            width: 220px;
+            background-color: #1e1e1e;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 1500;
+            display: none; /* Hidden until login */
+            overflow: hidden;
+        }
+        .console-header {
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            font-weight: bold;
+            border-bottom: 1px solid #555;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        #consoleOutput {
+            height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            display: flex;
+            flex-direction: column-reverse; /* Newest at bottom visually, but we prepend */
+        }
+        .log-entry {
+            margin-bottom: 4px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 2px;
+        }
+        .log-warn { color: #ff4444; font-weight: bold; }
+        .log-ok { color: #00ff00; }
+        /* Scrollbar for console */
+        #consoleOutput::-webkit-scrollbar { width: 5px; }
+        #consoleOutput::-webkit-scrollbar-thumb { background: #555; }
+
+        /* --- PROFESSIONAL CALCULATOR STYLES --- */
+        /* Floating Action Button */
         #calcToggle {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 30px;
+            right: 30px;
             z-index: 2000;
-            padding: 12px 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
             background: #2c3e50;
             color: white;
             border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             cursor: pointer;
             display: none; /* Hidden until logged in */
-            transition: transform 0.2s;
+            transition: transform 0.2s, background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         #calcToggle:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
             background: #34495e;
         }
+        #calcToggle svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
+        /* Draggable Container */
         #calculatorPopup {
             position: fixed;
-            bottom: 80px;
-            right: 20px;
-            z-index: 2000;
+            top: 20%;
+            left: 20%;
+            z-index: 2100;
             background: white;
-            padding: 5px;
+            padding: 0;
             border: 1px solid #ccc;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             border-radius: 8px;
             display: none;
+            overflow: hidden;
+            resize: both; /* Native resize handle if needed, but we use JS toggle */
         }
+
+        /* Header Bar (Drag Handle) */
+        .calc-header-bar {
+            background: #2c3e50;
+            color: white;
+            padding: 8px 15px;
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+        .calc-title {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .calc-controls button {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+            padding: 0 5px;
+        }
+        .calc-controls button:hover { color: #ddd; }
+
+        /* The Desmos Container */
         #calculator {
             width: 600px;
             height: 400px;
+            transition: width 0.3s, height 0.3s;
         }
-        /* Mobile responsiveness for calculator */
+        
+        /* Resize States */
+        .calc-large {
+            width: 900px !important;
+            height: 600px !important;
+        }
+        
+        /* Mobile Responsive */
         @media (max-width: 700px) {
-            #calculator { width: 90vw; height: 50vh; }
-            #calculatorPopup { right: 5vw; bottom: 80px; }
-        }
-        .calc-close-btn {
-            width: 100%;
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            border-bottom-left-radius: 4px;
-            border-bottom-right-radius: 4px;
+            #securityConsole { display: none !important; } /* Hide console on small screens to save space */
+            #calculator { width: 95vw !important; height: 50vh !important; }
+            #calculatorPopup { top: 10% !important; left: 2.5% !important; }
         }
     </style>
 </head>
 <body>
 
     <div class="status-overlay" id="focusBar"></div>
+
+    <!-- ================= SECURITY CONSOLE (New) ================= -->
+    <div id="securityConsole">
+        <div class="console-header">
+            🔒 Integrity Monitor
+        </div>
+        <div id="consoleOutput">
+            <!-- Logs appear here -->
+        </div>
+    </div>
 
     <!-- ================= WELCOME / PASSWORD SCREEN ================= -->
     <div class="container" id="welcomeScreen">
@@ -254,7 +346,7 @@
             <ul>
                 <li><strong>Time Limit:</strong> Recommended 40–60 minutes.</li>
                 <li><strong>Hints:</strong> Hints are available for every problem. Click "Show Hint" to see them.</li>
-                <li><strong>Calculator:</strong> A graphing calculator is available (bottom right) once the test starts.</li>
+                <li><strong>Calculator:</strong> A graphing calculator is available (bottom right icon) once the test starts.</li>
                 <li><strong>Anti-Cheat:</strong> Once you enter the password, the system will track if you switch tabs or leave the window.</li>
             </ul>
         </div>
@@ -273,7 +365,7 @@
             <h1>Physics Brawl Tryouts</h1>
             <div class="warning">
                 ⚠️ <strong>ANTI-CHEAT ACTIVE:</strong> Do not switch tabs or windows. 
-                Your activity and <strong>time spent away</strong> from this page is being recorded.
+                Your activity and <strong>time spent away</strong> from this page is being recorded in the side panel.
                 <br>Use the built-in calculator to avoid triggering the anti-cheat.
             </div>
             <p>
@@ -552,12 +644,23 @@
         </form>
     </div>
 
-    <!-- CALCULATOR ELEMENT -->
-    <button id="calcToggle" onclick="toggleCalculator()">🖩 Calculator</button>
+    <!-- CALCULATOR ELEMENTS -->
+    <button id="calcToggle" onclick="toggleCalculator()" title="Open Graphing Calculator">
+        <!-- SVG Icon for Calculator -->
+        <svg viewBox="0 0 24 24">
+            <path d="M7,2H17A2,2 0 0,1 19,4V20A2,2 0 0,1 17,22H7A2,2 0 0,1 5,20V4A2,2 0 0,1 7,2M7,4V8H17V4H7M7,10V12H9V10H7M11,10V12H13V10H11M15,10V12H17V10H15M7,14V16H9V14H7M11,14V16H13V14H11M15,14V16H17V14H15M7,18V20H9V18H7M11,18V20H13V18H11M15,18V20H17V18H15Z" />
+        </svg>
+    </button>
 
     <div id="calculatorPopup">
+        <div class="calc-header-bar" id="calcHeader">
+            <span class="calc-title">Desmos Graphing Calculator</span>
+            <div class="calc-controls">
+                <button onclick="resizeCalculator()" title="Toggle Size">⛶</button>
+                <button onclick="toggleCalculator()" title="Close">✕</button>
+            </div>
+        </div>
         <div id="calculator"></div>
-        <button class="calc-close-btn" onclick="toggleCalculator()">Minimise Calculator</button>
     </div>
 
     <script>
@@ -565,12 +668,68 @@
         var elt = document.getElementById('calculator');
         var calculator = Desmos.GraphingCalculator(elt);
 
+        // --- CALCULATOR UI LOGIC ---
         function toggleCalculator() {
             var popup = document.getElementById('calculatorPopup');
+            var toggleBtn = document.getElementById('calcToggle');
+            
             if (popup.style.display === "none" || popup.style.display === "") {
                 popup.style.display = "block";
+                toggleBtn.style.display = "none"; // Hide the FAB when calc is open
             } else {
                 popup.style.display = "none";
+                toggleBtn.style.display = "flex"; // Show FAB when calc is closed
+            }
+        }
+
+        function resizeCalculator() {
+            var calcContainer = document.getElementById('calculator');
+            calcContainer.classList.toggle('calc-large');
+            // Desmos requires a resize call if the container dims change
+            calculator.resize();
+        }
+
+        // --- DRAG FUNCTIONALITY ---
+        dragElement(document.getElementById("calculatorPopup"));
+
+        function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            if (document.getElementById("calcHeader")) {
+                // if present, the header is where you move the DIV from:
+                document.getElementById("calcHeader").onmousedown = dragMouseDown;
+            } else {
+                // otherwise, move the DIV from anywhere inside the DIV:
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                // stop moving when mouse button is released:
+                document.onmouseup = null;
+                document.onmousemove = null;
             }
         }
 
@@ -597,13 +756,14 @@
                 document.getElementById('welcomeScreen').style.display = 'none';
                 document.getElementById('testContainer').style.display = 'block';
                 
-                // Show Calculator Button
-                document.getElementById('calcToggle').style.display = 'block';
+                // Show UI Elements
+                document.getElementById('calcToggle').style.display = 'flex';
+                document.getElementById('securityConsole').style.display = 'block';
                 
                 // Initialize Anti-Cheat
                 testStarted = true;
                 startTime = new Date();
-                recordEvent("TEST STARTED");
+                recordEvent("TEST STARTED", "log-ok");
 
                 // Refresh MathJax to ensure hidden equations render correctly
                 if (window.MathJax) {
@@ -625,14 +785,31 @@
         let totalTimeAway = 0; // in seconds
         let awayStartTime = null;
 
-        function recordEvent(type) {
-            if (!testStarted) return; // Don't log before test starts
+        function updateConsole(message, cssClass = "") {
+            const consoleDiv = document.getElementById('consoleOutput');
+            const time = new Date().toLocaleTimeString();
+            
+            const div = document.createElement('div');
+            div.className = `log-entry ${cssClass}`;
+            div.innerText = `[${time}] ${message}`;
+            
+            // Prepend to show newest at top (flex-direction: column-reverse handles visual)
+            consoleDiv.appendChild(div);
+            consoleDiv.scrollTop = consoleDiv.scrollHeight; // Auto scroll
+        }
+
+        function recordEvent(type, cssClass="") {
+            if (!testStarted) return;
 
             let time = new Date();
-            let timeDiff = Math.round((time - startTime) / 1000); // seconds since start
+            let timeDiff = Math.round((time - startTime) / 1000); 
+            
+            // Log to Array (for form submission)
             let entry = `[${time.toLocaleTimeString()}] ${type} (T+${timeDiff}s)`;
             logData.push(entry);
-            console.log(entry);
+            
+            // Log to Visible Console
+            updateConsole(type, cssClass);
         }
 
         function startAwayTimer() {
@@ -650,7 +827,7 @@
 
             if (awayStartTime !== null) {
                 let now = new Date();
-                let diff = (now - awayStartTime) / 1000; // difference in seconds
+                let diff = (now - awayStartTime) / 1000; 
                 totalTimeAway += diff;
                 awayStartTime = null;
                 document.title = "Physics Brawl Tryouts";
@@ -660,33 +837,40 @@
         // Detect Visibility Change (Switching Tabs/Minimizing)
         document.addEventListener("visibilitychange", function() {
             if (document.visibilityState === 'hidden') {
-                if (testStarted) switchCount++;
-                recordEvent("TAB HIDDEN/SWITCHED");
-                startAwayTimer();
+                if (testStarted) {
+                    switchCount++;
+                    recordEvent("TAB SWITCHED / HIDDEN", "log-warn");
+                    startAwayTimer();
+                }
             } else {
-                recordEvent("TAB RESTORED");
-                stopAwayTimer();
+                if (testStarted) {
+                    recordEvent("TAB RESTORED", "log-ok");
+                    stopAwayTimer();
+                }
             }
         });
 
         // Detect Window Blur (Clicking outside browser)
         window.addEventListener("blur", function() {
-            // We double check visibility state to avoid duplicate logging
             if (document.visibilityState !== 'hidden') {
-                if (testStarted) switchCount++;
-                recordEvent("WINDOW LOST FOCUS");
-                startAwayTimer();
+                if (testStarted) {
+                    switchCount++;
+                    recordEvent("WINDOW LOST FOCUS", "log-warn");
+                    startAwayTimer();
+                }
             }
         });
 
         window.addEventListener("focus", function() {
-            recordEvent("WINDOW GAINED FOCUS");
-            stopAwayTimer();
+            if (testStarted) {
+                // We don't necessarily log "Gained Focus" to console to avoid spamming, 
+                // but we do stop the timer.
+                stopAwayTimer();
+            }
         });
 
         // --- PREPARE SUBMISSION ---
         function prepareSubmission() {
-            // Ensure timer is stopped if they submit while blurred (unlikely but possible)
             stopAwayTimer();
 
             // Populate hidden fields
