@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Physics Brawl Tryouts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- MathJax for LaTeX rendering -->
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]] },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Physics Brawl Tryouts – Short Set</h1>
+        <p class="subtitle">
+          Time suggestion: 40–50 minutes • Please read the rules carefully.
+        </p>
+      </header>
+
+      <section class="rules">
+        <h2>Rules</h2>
+        <ul>
+          <li>You may use a calculator.</li>
+          <li>Show your work and reasoning in the boxes.</li>
+          <li>
+            Do not switch tabs or windows. Focus changes are recorded and sent
+            with your submission.
+          </li>
+          <li>
+            Use \( g = 9.8\,\text{m/s}^2 \), speed of sound
+            \( v_{\text{sound}} = 343\,\text{m/s} \) unless told otherwise.
+          </li>
+          <li>Answer in SI units unless the problem explicitly states otherwise.</li>
+        </ul>
+      </section>
+
+      <section class="exam-metadata">
+        <h2>Participant Information</h2>
+        <!-- Using your actual Formspree endpoint -->
+        <form
+          id="tryout-form"
+          action="https://formspree.io/f/myzopqgk"
+          method="POST"
+        >
+          <div class="field-group">
+            <label for="name">Full name</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+
+          <div class="field-group">
+            <label for="email">Email (school)</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <div class="field-group">
+            <label for="school">School / Grade (optional)</label>
+            <input type="text" id="school" name="school" />
+          </div>
+
+          <div class="focus-warning">
+            <strong>Anti-cheat:</strong>
+            <span id="focus-info">
+              Focus violations: <span id="focus-count">0</span>
+            </span>
+            <span class="focus-note">
+              Leaving this tab or window is recorded.
+            </span>
+          </div>
+
+          <hr />
+
+          <!-- Problem 1 -->
+          <section class="problem">
+            <h2>Problem 1 – Sound and the Sprint Start</h2>
+            <p>
+              In a 100 m race, two sprinters run in lanes whose centers are
+              separated sideways by \(3.66\,\text{m}\). The starter’s pistol is
+              fired near lane 1. Assume:
+            </p>
+            <ul>
+              <li>Both sprinters start exactly when they <strong>hear</strong> the gun.</li>
+              <li>The speed of sound is \(343\,\text{m/s}\).</li>
+              <li>
+                In the official result, Runner A finishes in
+                \(9.784\,\text{s}\), Runner B in \(9.789\,\text{s}\)
+                (so A wins by \(0.005\,\text{s}\)).
+              </li>
+            </ul>
+
+            <p><strong>(a)</strong> If they instead had to react to the <strong>real gunshot</strong> (no speakers), by how much earlier would the closer runner hear the sound than the farther runner?</p>
+            <p><strong>(b)</strong> Using that time advantage, which runner would win, and by roughly how much time, assuming their running speeds stay the same as in the original race?</p>
+
+            <p class="hint">
+              Hint: (a) \( \Delta t = \dfrac{\Delta d}{v_\text{sound}} \), where
+              \( \Delta d = 3.66\,\text{m} \). (b) Compare that hearing-time
+              difference to the original \(0.005\,\text{s}\) win margin.
+            </p>
+
+            <div class="field-group">
+              <label for="p1a">Problem 1 (a) – final answer + reasoning</label>
+              <textarea id="p1a" name="p1a" rows="4" required></textarea>
+            </div>
+
+            <div class="field-group">
+              <label for="p1b">Problem 1 (b) – final answer + reasoning</label>
+              <textarea id="p1b" name="p1b" rows="4" required></textarea>
+            </div>
+          </section>
+
+          <!-- Problem 2 -->
+          <section class="problem">
+            <h2>Problem 2 – Stressed Rail</h2>
+            <p>
+              A long steel rail is held rigidly so that it <strong>cannot expand</strong>.
+              Steel has:
+            </p>
+            <ul>
+              <li>Young’s modulus \(E = 195\,\text{GPa} = 1.95\times10^{11}\,\text{Pa}\),</li>
+              <li>Linear expansion coefficient \( \alpha = 1.63\times10^{-5}\,\text{K}^{-1} \),</li>
+              <li>Maximum allowed stress \( \sigma_{\max} = 600\,\text{MPa} = 6.0\times10^{8}\,\text{Pa} \).</li>
+            </ul>
+            <p>
+              If the temperature increases by \( \Delta T \), the rail “wants” to
+              expand, but the constraints prevent it, so stress builds up instead.
+            </p>
+
+            <p>
+              <strong>Question:</strong> What maximum temperature change
+              \( \Delta T_{\max} \) (in K) can the rail withstand before the
+              stress reaches \( \sigma_{\max} \)?
+            </p>
+
+            <p class="hint">
+              Hint: For free expansion
+              \( \dfrac{\Delta L}{L} = \alpha \Delta T \). For elastic stretching
+              \( \sigma = E \varepsilon \), where \( \varepsilon = \dfrac{\Delta L}{L} \).
+              Combine to get
+              \( \sigma = E \alpha \Delta T \Rightarrow \Delta T = \dfrac{\sigma}{E\alpha} \).
+            </p>
+
+            <div class="field-group">
+              <label for="p2">Problem 2 – final answer (number + units) and reasoning</label>
+              <textarea id="p2" name="p2" rows="4" required></textarea>
+            </div>
+          </section>
+
+          <!-- Problem 3 -->
+          <section class="problem">
+            <h2>Problem 3 – Shadow Walking</h2>
+            <p>
+              A street lamp is a point light source at height \( H = 3.2\,\text{m} \).
+              A person of height \( h = 1.8\,\text{m} \) walks directly away from
+              the lamp along flat ground at constant speed
+              \( v = 1.5\,\text{m/s} \).
+            </p>
+            <p>Let:</p>
+            <ul>
+              <li>\( s(t) \) = horizontal distance from lamp to the person at time \( t \),</li>
+              <li>\( x(t) \) = length of the person’s shadow on the ground behind them,</li>
+              <li>The person starts at some initial distance \( s_0 \) at \( t = 0 \).</li>
+            </ul>
+
+            <p>
+              <strong>(a)</strong> Using similar triangles, express \( x \) in terms of
+              \( s \), \( H \), and \( h \).
+            </p>
+            <p>
+              <strong>(b)</strong> Write \( s(t) \) and then \( x(t) \) explicitly as
+              a function of \( t \).
+            </p>
+            <p>
+              <strong>(c)</strong> What is the acceleration of the tip of the
+              shadow? (The tip is at distance \( s(t) + x(t) \) from the lamp.)
+            </p>
+
+            <p class="hint">
+              Hint: Similar triangles give
+              \( \dfrac{s + x}{H} = \dfrac{x}{h} \Rightarrow x(s) = \dots \).
+              The person moves at constant speed \( s(t) = s_0 + vt \). Decide
+              whether the tip’s position is linear, quadratic, etc. in \( t \).
+            </p>
+
+            <div class="field-group">
+              <label for="p3a">Problem 3 (a) – expression for \(x(s)\)</label>
+              <textarea id="p3a" name="p3a" rows="3" required></textarea>
+            </div>
+
+            <div class="field-group">
+              <label for="p3b">Problem 3 (b) – \(s(t)\) and \(x(t)\)</label>
+              <textarea id="p3b" name="p3b" rows="3" required></textarea>
+            </div>
+
+            <div class="field-group">
+              <label for="p3c">Problem 3 (c) – acceleration of shadow tip</label>
+              <textarea id="p3c" name="p3c" rows="3" required></textarea>
+            </div>
+          </section>
+
+          <!-- Problem 4 -->
+          <section class="problem">
+            <h2>Problem 4 – Thumb-Rule Plane Spotting</h2>
+            <p>
+              Martin looks out the window and sees a passenger plane crossing
+              his field of view. He uses the rule:
+            </p>
+            <blockquote>
+              “1 thumb at arm’s length = \(2.5^\circ\) of angle.”
+            </blockquote>
+            <p>He estimates:</p>
+            <ul>
+              <li>The plane stays in view for 10 s.</li>
+              <li>During that time, it sweeps an angle of 7.5 thumbs across the sky.</li>
+              <li>So the angular distance it travels is \(7.5 \times 2.5^\circ\).</li>
+              <li>
+                The plane itself appears about half a thumb long, and he guesses
+                it’s a Boeing 737-800 of actual length \( 40\,\text{m} \).
+              </li>
+            </ul>
+            <p>
+              Assume the plane flies in a straight line perpendicular to
+              Martin’s line of sight (across his view).
+            </p>
+            <p>
+              <strong>Question:</strong> Estimate the plane’s speed in km/h
+              based on these numbers.
+            </p>
+
+            <p class="hint">
+              Hint: Convert thumbs → degrees (and then radians). Use
+              \( \dfrac{\text{length}}{\text{distance}} \approx \) angular size (in radians),
+              then total path length
+              \( \approx \dfrac{\text{angular travel}}{\text{angular size}}
+              \times (\text{length of plane}) \), and finally
+              \( v = \dfrac{\text{distance traveled}}{\text{time}} \).
+            </p>
+
+            <div class="field-group">
+              <label for="p4">Problem 4 – final speed estimate + reasoning</label>
+              <textarea id="p4" name="p4" rows="4" required></textarea>
+            </div>
+          </section>
+
+          <!-- Extra -->
+          <section class="problem">
+            <h2>Anything else?</h2>
+            <div class="field-group">
+              <label for="notes">
+                Optional comments, clarifications, or if something was unclear:
+              </label>
+              <textarea id="notes" name="notes" rows="3"></textarea>
+            </div>
+          </section>
+
+          <!-- Hidden fields for metadata -->
+          <input type="hidden" id="focusViolations" name="focusViolations" value="0" />
+          <input type="hidden" id="startedAt" name="startedAt" value="" />
+          <input type="hidden" id="submittedAt" name="submittedAt" value="" />
+
+          <div class="submit-row">
+            <button type="button" id="start-btn">Start timer & enable tracking</button>
+            <button type="submit" id="submit-btn" disabled>Submit answers</button>
+          </div>
+
+          <p class="status" id="status-msg"></p>
+        </form>
+      </section>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
