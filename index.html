@@ -178,6 +178,26 @@
             display: none;
         }
 
+        /* --- LATEX PREVIEW STYLES --- */
+        .latex-preview {
+            margin-top: 5px;
+            padding: 10px;
+            background-color: #e8eef2;
+            border: 1px dashed #bdc3c7;
+            border-radius: 4px;
+            min-height: 20px;
+            color: #555;
+            font-size: 0.95em;
+        }
+        .latex-preview-label {
+            font-size: 0.75em;
+            text-transform: uppercase;
+            color: #7f8c8d;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 4px;
+        }
+
         /* --- SECURITY CONSOLE STYLES --- */
         #securityConsole {
             position: fixed;
@@ -415,6 +435,7 @@
                 <li><strong>Time Limit:</strong> Recommended 40–60 minutes.</li>
                 <li><strong>Hints:</strong> Hints are available for every problem. Click "Show Hint" to see them.</li>
                 <li><strong>Calculator:</strong> A graphing calculator is available (bottom right icon) once the test starts.</li>
+                <li><strong>LaTeX Support:</strong> You can write math by wrapping it in <code>\( ... \)</code>. Example: <code>\( \sqrt{x^2} \)</code>. A preview will appear below your answer.</li>
                 <li><strong>Anti-Cheat:</strong> Once you enter the password, the system will track if you switch tabs or leave the window.</li>
             </ul>
         </div>
@@ -439,8 +460,8 @@
             <p>
                 <strong>Rules:</strong> <br>
                 1. Use \( g = 9.8 \, \text{m/s}^2 \), \( v_{\text{sound}} = 343 \, \text{m/s} \).<br>
-                2. Show your reasoning/work in the text boxes.<br>
-                3. Partial credit is better than no answer.
+                2. Show your reasoning/work. <br>
+                3. <strong>Math Format:</strong> Wrap equations in <code>\( ... \)</code> for LaTeX formatting. E.g., <code>\( \frac{1}{2}mv^2 \)</code>. Check the preview box!
             </p>
         </div>
 
@@ -809,6 +830,49 @@
             }
         }
 
+        // --- LATEX AUTO PREVIEW ---
+        // Automatically finds all input fields in problems and adds a preview box
+        function enableLatexPreviews() {
+            // Select all text inputs and textareas inside .problem divs
+            const inputs = document.querySelectorAll('.problem input[type="text"], .problem textarea');
+            
+            inputs.forEach((input, index) => {
+                // Create preview container
+                const previewDiv = document.createElement('div');
+                previewDiv.className = 'latex-preview';
+                previewDiv.id = 'preview-' + index;
+                
+                const label = document.createElement('span');
+                label.className = 'latex-preview-label';
+                label.innerText = 'Answer Preview:';
+                
+                const content = document.createElement('span');
+                content.innerText = '(Start typing...)';
+                
+                previewDiv.appendChild(label);
+                previewDiv.appendChild(content);
+                
+                // Insert after the input
+                input.parentNode.insertBefore(previewDiv, input.nextSibling);
+                
+                // Add event listener
+                input.addEventListener('input', function() {
+                    const val = this.value;
+                    if (val.trim() === "") {
+                        content.innerText = "(Start typing...)";
+                    } else {
+                        // Just put the raw text in. MathJax will find \( ... \) delimiters.
+                        content.innerText = val;
+                    }
+                    
+                    // Trigger MathJax render on this specific element
+                    if (window.MathJax) {
+                        MathJax.typesetPromise([previewDiv]);
+                    }
+                });
+            });
+        }
+
         // --- PASSWORD / START LOGIC ---
         let testStarted = false;
 
@@ -830,6 +894,9 @@
                 testStarted = true;
                 startTime = new Date();
                 recordEvent("TEST STARTED", "log-ok");
+
+                // Initialize LaTeX Previews
+                enableLatexPreviews();
 
                 // Refresh MathJax to ensure hidden equations render correctly
                 if (window.MathJax) {
